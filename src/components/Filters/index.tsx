@@ -8,7 +8,7 @@ import Image from 'next/image'
 import { Button } from '../ui/button'
 import { useState } from 'react'
     const FilterContent = styled.div`
-        width: 1200px;
+        width: 1300px;
         padding:10px;
         margin: 0px auto;
         display: flex;
@@ -24,7 +24,6 @@ import { useState } from 'react'
 
     `
     const FilterElement = styled.div`
-        font-weight: bold;
         font-size: 11px;
     `
     const FilterClose = styled.div`
@@ -49,6 +48,9 @@ const Filters = () => {
         </FilterElement>
         <FilterElement>
             <SelectComponent placeholder='Product'/>
+        </FilterElement>
+        <FilterElement>
+            <SelectComponent placeholder='Barcode'/>
         </FilterElement>
         <FilterElement>
              <DatePicker/>

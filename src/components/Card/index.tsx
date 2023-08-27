@@ -17,8 +17,10 @@ const cardIcon = (cardTitle: string): string => {
             return './salesicon.svg'
         case 'Sales':
            return './ordersicon.svg'
+        case 'Marketshare':
+        return './marketshareicon.svg'
         default:
-            return './erroricon.svg'
+            return './gmvicon.svg'
     }
 }
 
@@ -29,10 +31,15 @@ const CardHeaderContainer = styled.div`
 
 `
 
+const CardTitle = styled.div`
+  font-size:18px;
+  font-weight: 500;
+`
+
 const DashboardItem = (props: any) => {
     return (<Card>
     <CardHeaderContainer>
-        <CardDescription>{props.cardTitle}</CardDescription>
+        <CardTitle>{props.cardTitle}</CardTitle>
         <Image src={cardIcon(props.cardTitle)} alt='icon' width={15} height={15}/>
     </CardHeaderContainer>
     <CardContent>

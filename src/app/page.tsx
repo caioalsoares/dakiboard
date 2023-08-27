@@ -5,7 +5,10 @@ import './globals.css'
 import Filters from '@/components/Filters'
 import DashboardItem from '@/components/Card/'
 import abbrNum from '@/lib/utils/abbrmoney'
-import { LineChart, Line, BarChart, Bar, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, Bar, BarChart, ResponsiveContainer } from 'recharts';
+import WeekOverWeek from '@/components/WeekOverWeek'
+import MarketShareCard from '@/components/MarketShare'
+
 
 const data = [
   {name: 'Page A', uv: 400, pv: 2400, amt: 2400},
@@ -19,22 +22,27 @@ const data = [
 
 const renderLineChart = () => {
   return (
-    <LineChart width={240} height={100} data={data} barSize={200}>
-      <Line type="monotone" dataKey="uv" stroke="#1759FF" strokeWidth={2} />
-    </LineChart>
+      <LineChart width={240} height={100} data={data} barSize={200}>
+        <Line type="monotone" dataKey="uv" stroke="#1759FF" strokeWidth={2} />
+      </LineChart>
   )
 }
 
+
+
 const renderBarChart = () => {
+
     return (
-        <BarChart width={240} height={100} data={data}>
-          <Bar dataKey="uv" fill="#1759FF" radius={[5, 5, 0, 0]}/>
-        </BarChart>        
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart width={150} height={40} data={data}>
+          <Bar dataKey="uv" fill="#1759FF" radius={[3, 3, 3, 3]} />
+        </BarChart>
+      </ResponsiveContainer>
    )
 }
 
 const DashboardWrapper = styled.div`
-  width: 1200px;
+  width: 1300px;
   display: grid;
   padding: 15px;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -42,11 +50,34 @@ const DashboardWrapper = styled.div`
   margin: 0px auto;
 `
 
-const DashboardValue = styled.h1<{numberSize: string}>`
-    font-size: ${ props => props.numberSize  };
-    font-weight: medium;
+const MarketShareWrapper = styled.div`
+  width: 1300px;
+  display: grid;
+  padding: 15px;
+  gap: 15px;
+  margin: 0px auto;
 `
 
+const DashboardValue = styled.div<{numberSize: string, textAlign?: string}>`
+    font-size: ${ props => props.numberSize  };
+    font-weight: medium;
+    text-align: ${ props => props.textAlign  };
+`
+const BarChartContainer = styled.div`
+    width: 240px;
+    height: 100px;
+`
+
+const PositiveVariation = styled.div`
+  font-weight: bold;
+  font-size: 12px;
+  color: #00ff40;
+`
+const NegativeVariation = styled.div`
+  font-weight: bold;
+  font-size: 12px;
+  color: red;
+`
 
 
 export default function Home() {
@@ -62,20 +93,35 @@ export default function Home() {
           </DashboardValue>
           {renderLineChart()}
         </DashboardItem>
-
         <DashboardItem cardTitle= 'Orders'>
           <DashboardValue numberSize='24px'>
             {abbrNum(452317678.89, 2)}
+            <BarChartContainer>
+              {renderBarChart()}
+            </BarChartContainer>
+            
           </DashboardValue>
-          {renderBarChart()}
         </DashboardItem>        
         <DashboardItem cardTitle= 'GMV'>
-          <DashboardValue numberSize='40px'>
+          <DashboardValue numberSize='40px' textAlign='center'>
             {abbrNum(452317678.89, 2)}
+            <PositiveVariation>▲ +3,85%</PositiveVariation>
           </DashboardValue>
           </DashboardItem>
-        <DashboardItem cardTitle= 'Impressions'><DashboardValue numberSize='40px'>{abbrNum(452317678.89, 2)}</DashboardValue></DashboardItem>
+        <DashboardItem cardTitle= 'Impressions'>
+          <DashboardValue numberSize='40px' textAlign='center'>
+          {abbrNum(452317678.89, 2)}
+          <NegativeVariation>▼ -4,85%</NegativeVariation>
+
+          </DashboardValue>
+          </DashboardItem>
+        {renderBarChart()}
       </DashboardWrapper>
+      <WeekOverWeek/>
+      <MarketShareWrapper>
+        <MarketShareCard/>
+      </MarketShareWrapper>
+      
     </>
   )
 }

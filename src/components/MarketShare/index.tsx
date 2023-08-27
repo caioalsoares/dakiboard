@@ -84,7 +84,7 @@ const renderMarketShareLegend = () => {
     return (
         <MarketShareLegend>
         {data.map((entry, index) => (
-            <PieChartLegend color={COLORS[index % COLORS.length]}>{entry.name}</PieChartLegend>
+            <PieChartLegend key={index} color={COLORS[index % COLORS.length]}>{entry.name}</PieChartLegend>
             ))}
         </MarketShareLegend>
     )
